@@ -15,18 +15,15 @@ const Write: React.FC = () => {
   };
 
   const onClickRegister = async () => {
-    const response = await fetch(
-      `${process.env.NEXT_PUBLIC_BASE_URI}/api/post`,
-      {
-        method: "POST",
-        body: JSON.stringify({ data, title }),
-      }
-    );
+    const response = await fetch(`/api/post`, {
+      method: "POST",
+      body: JSON.stringify({ data, title }),
+    });
     const success = await response.json();
 
     const { revalidated } = await (
       await fetch(
-        `${process.env.NEXT_PUBLIC_BASE_URI}/api/revalidate?secret=${process.env.NEXT_PUBLIC_MY_SECRET_TOKEN}`
+        `/api/revalidate?secret=${process.env.NEXT_PUBLIC_MY_SECRET_TOKEN}`
       )
     ).json();
     if (success && revalidated)
